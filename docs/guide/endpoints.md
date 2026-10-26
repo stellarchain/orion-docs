@@ -12,9 +12,19 @@ Orion provides 100% drop-in compatibility with Stellar Horizon (`/` root discove
 | Endpoint | Description |
 | :--- | :--- |
 | `GET /` | Root discovery document (`_links`, `history_latest_ledger`, `orion.live`) |
-| `GET /statistics` | Network statistics catalog (47 metrics, coverage, snapshot digest) |
-| `GET /statistics/{metric_id}` | Time-series and dimensional query for any of the 47 network metrics |
-| `GET /contracts/{contract_id}/events` | Lossless deployment-to-tip Soroban contract event history |
+| `GET /contracts` | Paginated catalog of all Soroban contracts (`?executable_type=wasm\|stellar_asset`, `?wasm_hash=`, `?asset=`) |
+| `GET /contracts/{contract_id}` | Single Soroban contract resource with live RPC state, TTL, and decoded instance storage |
+| `GET /contracts/{contract_id}/transactions` | Transactions involving a Soroban contract |
+| `GET /contracts/{contract_id}/operations` | Operations involving a Soroban contract |
+| `GET /contracts/{contract_id}/payments` | Payment / token transfer operations involving a Soroban contract |
+| `GET /contracts/{contract_id}/effects` | Effects involving a Soroban contract |
+| `GET /contracts/{contract_id}/events` | Soroban contract events with decoded `topics_decoded` and `value_decoded` |
+| `GET /contracts/{contract_id}/data` | Contract instance storage entries |
+| `GET /contracts/{contract_id}/data/{key}` | Single contract storage entry (`instance`, `persistent`, or `temporary`) |
+| `GET /contracts/{contract_id}/code` | Contract WASM bytecode (`wasm_hash`, `wasm_size_bytes`, `wasm_base64`) |
+| `GET /statistics` | Network statistics catalog (9 categories, 47 metrics, coverage, snapshot digest) |
+| `GET /statistics/{category}` | Category rollup time-series (`/statistics/accounts`, `/statistics/assets`, `/statistics/contracts`, etc.) |
+| `GET /statistics/{category}/{metric}` | Time-series and dimensional query for any network metric (e.g., `/statistics/assets/active`) |
 | `POST /rpc` | Soroban JSON-RPC 2.0 (`getHealth`, `getLatestLedger`, `getEvents`, `getLedgerEntries`, `simulateTransaction`, `sendTransaction`, etc.) |
 | `GET /ledgers` | List ledgers (`?cursor=&limit=&order=asc\|desc`) |
 | `GET /ledgers/{sequence}` | Single ledger details (Genesis `#3` through Live Tip) |

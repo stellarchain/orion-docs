@@ -30,6 +30,7 @@ export default defineConfig({
           items: [
             { text: 'Getting Started', link: '/guide/' },
             { text: 'Endpoints Reference', link: '/guide/endpoints' },
+            { text: 'Soroban Contracts (/contracts)', link: '/guide/contracts' },
             { text: 'Live Statistics (47 Metrics)', link: '/guide/statistics' },
             { text: 'Architecture & R2 Lakehouse', link: '/guide/architecture' },
             { text: 'Live Web & API Analytics', link: '/guide/analytics' },
