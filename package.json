@@ -1,0 +1,14 @@
+{
+  "name": "orion-docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Official VitePress Error Reference, Stellar Result Codes & API Documentation for Orion (orion.stellarchain.io)",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}

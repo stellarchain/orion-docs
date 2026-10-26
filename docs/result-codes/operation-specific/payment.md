@@ -1,0 +1,98 @@
+---
+title: Payment Result Codes
+description: "These are result codes that communicate success (200) or failure (400) specific to the Payment operation, which often fails because the receiving account..."
+---
+
+These are result codes that communicate success (200) or failure (400) specific to the `Payment` operation, which often fails because the receiving account does not trust the issuer of the asset being sent.
+
+Learn more about the [`Payment` operation](https://developers.stellar.org/docs/learn/fundamentals/transactions/list-of-operations#payment).
+
+
+### `OpSuccess` <Badge type="tip" text="PAYMENT_SUCCESS" />
+
+
+The payment was successfully completed.
+
+
+
+
+
+### `OpMalformed` <Badge type="tip" text="PAYMENT_MALFORMED" />
+
+
+The input to the payment is invalid.
+
+
+
+
+
+### `OpUnderfunded` <Badge type="tip" text="PAYMENT_UNDERFUNDED" />
+
+
+The source account (sender) does not have enough lumens to send the payment amount while maintaining its own minimum reserve.
+
+
+
+
+
+### `OpSrcNoTrust` <Badge type="tip" text="PAYMENT_SRC_NO_TRUST" />
+
+
+The source account does not have a trustline for the asset it is tring to send.
+
+
+
+
+
+### `OpSrcNotAuthorized` <Badge type="tip" text="PAYMENT_SRC_NOT_AUTHORIZED" />
+
+
+The source account is not authorized to send this asset.
+
+
+
+
+
+### `OpNoDestination` <Badge type="tip" text="PAYMENT_NO_DESTINATION" />
+
+
+The destination account does not exist.
+
+
+
+
+
+### `OpNoTrust` <Badge type="tip" text="PAYMENT_NO_TRUST" />
+
+
+The destination account does not have a trustline for the asset being sent.
+
+
+
+
+
+### `OpNotAuthorized` <Badge type="tip" text="PAYMENT_NOT_AUTHORIZED" />
+
+
+The destination account is not authorized to hold this asset.
+
+
+
+
+
+### `OpLineFull` <Badge type="tip" text="PAYMENT_LINE_FULL" />
+
+
+The destination account (receiver) does not have sufficient limits to receive amount and still satisfy its buying liabilities.
+
+
+
+
+
+### `OpNoIssuer` <Badge type="tip" text="PAYMENT_NO_ISSUER" />
+
+
+The issuer of the asset does not exist.
+
+
+

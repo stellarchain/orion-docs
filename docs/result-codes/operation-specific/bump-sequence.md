@@ -1,0 +1,26 @@
+---
+title: Bump Sequence Result Codes
+description: "These are result codes that communicate success (200) or failure (400) specific to the Bump Sequence operation."
+---
+
+These are result codes that communicate success (200) or failure (400) specific to the `Bump Sequence` operation.
+
+Learn more about the [`Bump Sequence` operation](https://developers.stellar.org/docs/learn/fundamentals/transactions/list-of-operations#bump-sequence).
+
+
+### `OpSuccess` <Badge type="tip" text="BUMP_SEQUENCE_SUCCESS" />
+
+
+Sequence number has been bumped.
+
+
+
+
+
+### `op_bad_seq` <Badge type="tip" text="BUMP_SEQUENCE_BAD_SEQ" />
+
+
+The specified bumpTo sequence number is not a valid sequence number. It must be between 0 and INT64_MAX (9223372036854775807 or 0x7fffffffffffffff).
+
+
+

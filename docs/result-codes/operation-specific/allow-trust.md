@@ -1,0 +1,71 @@
+---
+title: Allow Trust Result Codes
+description: "These are result codes that communicate success (200) or failure (400) specific to the Allow Trust operation."
+---
+
+These are result codes that communicate success (200) or failure (400) specific to the `Allow Trust` operation.
+
+Learn more about the [`Allow Trust` operation](https://developers.stellar.org/docs/learn/fundamentals/transactions/list-of-operations#allow-trust).
+
+
+### `OpSuccess` <Badge type="tip" text="ALLOW_TRUST_SUCCESS" />
+
+
+Trust trust operation was successful.
+
+
+
+
+
+### `OpMalformed` <Badge type="tip" text="ALLOW_TRUST_MALFORMED" />
+
+
+The asset specified in type is invalid. In addition, this error happens when the native asset is specified.
+
+
+
+
+
+### `op_no_trustline` <Badge type="tip" text="ALLOW_TRUST_NO_TRUST_LINE" />
+
+
+The trustor does not have a trustline with the issuer performing this operation.
+
+
+
+
+
+### `op_not_required` <Badge type="tip" text="ALLOW_TRUST_TRUST_NOT_REQUIRED" />
+
+
+The source account (issuer performing this operation) does not require trust. In other words, it does not have to have the flag AUTH_REQUIRED_FLAG set.
+
+
+
+
+
+### `op_cant_revoke` <Badge type="tip" text="ALLOW_TRUST_CANT_REVOKE" />
+
+
+The source account is trying to revoke the trustline of the trustor, but it cannot do so.
+
+
+
+
+
+### `op_self_not_allowed` <Badge type="tip" text="ALLOW_TRUST_SELF_NOT_ALLOWED" />
+
+
+The source account attempted to allow a trustline for itself, which is not allowed because an account cannot create a trustline with itself.
+
+
+
+
+
+### `op_low_reserve` <Badge type="tip" text="ALLOW_TRUST_LOW_RESERVE" />
+
+
+Claimable balances can't be created on revoke due to low reserves
+
+
+
