@@ -1,11 +1,30 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "orion-docs",
+  "main": "worker.mjs",
   "compatibility_date": "2026-09-11",
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "head_sampling_rate": 1
   },
   "assets": {
-    "directory": "docs/.vitepress/dist"
-  }
+    "directory": "docs/.vitepress/dist",
+    "binding": "ASSETS"
+  },
+  "r2_buckets": [
+    {
+      "binding": "ORION_BUCKET",
+      "bucket_name": "orion"
+    }
+  ],
+  "analytics_engine_datasets": [
+    {
+      "binding": "DOCS_ANALYTICS",
+      "dataset": "orion_docs_analytics"
+    },
+    {
+      "binding": "API_ANALYTICS",
+      "dataset": "orion_api_telemetry"
+    }
+  ]
 }

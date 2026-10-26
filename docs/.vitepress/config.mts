@@ -17,6 +17,7 @@ export default defineConfig({
       { text: 'Horizon Errors', link: '/horizon-errors/' },
       { text: 'Orion Problems', link: '/problems/' },
       { text: 'Result Codes', link: '/result-codes/' },
+      { text: 'Analytics', link: '/guide/analytics' },
       { text: 'Live API (Pubnet)', link: 'https://pubnet.stellarchain.io/' }
     ],
     search: {
@@ -31,6 +32,7 @@ export default defineConfig({
             { text: 'Endpoints Reference', link: '/guide/endpoints' },
             { text: 'Live Statistics (47 Metrics)', link: '/guide/statistics' },
             { text: 'Architecture & R2 Lakehouse', link: '/guide/architecture' },
+            { text: 'Live Web & API Analytics', link: '/guide/analytics' },
             { text: 'Error Response Structure', link: '/guide/response' },
             { text: 'Error Handling Strategies', link: '/guide/error-handling' }
           ]
