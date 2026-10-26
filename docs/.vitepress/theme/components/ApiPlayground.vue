@@ -18,9 +18,14 @@ const presets = [
     path: '/statistics'
   },
   {
-    label: 'Live Metric: daily-active-accounts',
+    label: 'Category Resource: /statistics/contracts',
     category: 'API',
-    path: '/statistics/daily-active-accounts?limit=5&order=desc'
+    path: '/statistics/contracts?fields=active,callers,events&limit=2'
+  },
+  {
+    label: 'Metric: /statistics/assets/active',
+    category: 'API',
+    path: '/statistics/assets/active?limit=5&order=desc'
   },
   {
     label: 'Trigger 400: invalid_accounts_params',
