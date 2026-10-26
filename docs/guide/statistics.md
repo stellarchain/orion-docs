@@ -1,25 +1,64 @@
 ---
 title: Live Network Statistics (/statistics)
-description: 47 real-time and historical Stellar network metrics backed by 12 Parquet families in Cloudflare R2.
+description: 47 real-time and historical Stellar network metrics served in Horizon HAL+JSON format.
 ---
 
 # Live Network Statistics (`/statistics`)
 
-Orion continuously reduces every closed Stellar ledger into **12 Parquet statistics families** (`core`, `soroban`, `Soroban`, `fees`, `dex`, `stablecoins`, `corridors`, `trustlines`, `FailureCodes`, `ContractFunctions`, `ContractStorage`, `account-activity`) plus `native_ledger_summary.parquet` and publishes them to Cloudflare R2 (`history/v5/_derived/statistics/`).
+Orion serves **47 real-time and historical Stellar network metrics** using the exact same **Horizon REST + HAL+JSON** conventions (`_links`, `_embedded.records`, `paging_token`, `cursor`, `limit`, `order`) as `/ledgers`, `/transactions`, and `/operations`.
 
-## Discovery & Query Endpoints
+## Endpoints
 
-- **`GET https://pubnet.stellarchain.io/statistics`** — Returns all **47 metric definitions**, supported granularities (`1d`, `1w`, `1mo`, `1q`), dimension schemas, and the live UTC coverage window.
-- **`GET https://pubnet.stellarchain.io/statistics/{metric_id}?start=...&end=...&granularity=1d&limit=...`** — Queries a specific metric across UTC calendar buckets (`1d`, `1w`, `1mo`, `1q`) with optional `dimension[name]=value` filters.
+- **`GET https://pubnet.stellarchain.io/statistics`** — Returns a HAL+JSON collection (`_embedded.records`) of all **47 available metrics**, their units, supported granularities (`1d`, `1w`, `1mo`, `1q`), dimensions, and templated `_links.self` URLs.
+- **`GET https://pubnet.stellarchain.io/statistics/{metric_id}{?cursor,limit,order,granularity}`** — Returns a paginated HAL+JSON time-series (`_embedded.records`) with `_links.self`, `_links.next`, and `_links.prev`.
 
-### Example Query
+### Query Parameters (`GET /statistics/{metric_id}`)
+
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `cursor` | *(latest UTC day)* | ISO-8601 timestamp or `YYYY-MM-DD` `paging_token` from the previous page |
+| `limit` | `10` | Number of time buckets to return (`1` to `5000`) |
+| `order` | `desc` | Sort order (`desc` or `asc`) |
+| `granularity` | `1d` | Bucket size (`1d`, `1w`, `1mo`, `1q`) |
+| `<dimension>` | *(optional)* | Direct dimension filter (e.g., `?asset=native` or `?result_code=tx_bad_seq`) |
+
+### Example Requests & Responses
 
 ```bash
-# Discover all 47 metrics and current coverage window
+# 1. List all 47 statistics metrics (HAL+JSON)
 curl -s "https://pubnet.stellarchain.io/statistics" | jq .
 
-# Query daily-active-accounts
-curl -s "https://pubnet.stellarchain.io/statistics/daily-active-accounts?start=2026-10-26T00:00:00Z&end=2026-10-27T00:00:00Z&granularity=1d&limit=1" | jq .
+# 2. Query daily-active-accounts (defaults to latest 10 days, order=desc)
+curl -s "https://pubnet.stellarchain.io/statistics/daily-active-accounts?limit=3&order=desc" | jq .
+```
+
+```json
+{
+  "_links": {
+    "self": {
+      "href": "https://pubnet.stellarchain.io/statistics/daily-active-accounts?granularity=1d&limit=3&order=desc"
+    },
+    "next": {
+      "href": "https://pubnet.stellarchain.io/statistics/daily-active-accounts?cursor=2026-10-24T00:00:00Z&granularity=1d&limit=3&order=desc"
+    },
+    "prev": {
+      "href": "https://pubnet.stellarchain.io/statistics/daily-active-accounts?cursor=2026-10-26T00:00:00Z&granularity=1d&limit=3&order=asc"
+    }
+  },
+  "_embedded": {
+    "records": [
+      {
+        "id": "daily-active-accounts:2026-10-26T00:00:00Z",
+        "paging_token": "2026-10-26T00:00:00Z",
+        "timestamp": "2026-10-26T00:00:00Z",
+        "metric": "daily-active-accounts",
+        "unit": "accounts",
+        "granularity": "1d",
+        "value": "48210"
+      }
+    ]
+  }
+}
 ```
 
 ---

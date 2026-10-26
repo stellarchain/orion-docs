@@ -20,7 +20,7 @@ const presets = [
   {
     label: 'Live Metric: daily-active-accounts',
     category: 'API',
-    path: '/statistics/daily-active-accounts?start=2026-10-26T00:00:00Z&end=2026-10-27T00:00:00Z&granularity=1d&limit=1'
+    path: '/statistics/daily-active-accounts?limit=5&order=desc'
   },
   {
     label: 'Trigger 400: invalid_accounts_params',
