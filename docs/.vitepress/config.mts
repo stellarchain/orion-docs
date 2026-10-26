@@ -15,7 +15,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide & API', link: '/guide/' },
       { text: 'Horizon Errors', link: '/horizon-errors/' },
-      { text: 'Orion /v3 Problems', link: '/problems/' },
+      { text: 'Orion Problems', link: '/problems/' },
       { text: 'Result Codes', link: '/result-codes/' },
       { text: 'Live API (Pubnet)', link: 'https://pubnet.stellarchain.io/' }
     ],
@@ -141,10 +141,10 @@ export default defineConfig({
       ],
       '/problems/': [
         {
-          text: 'Orion /v3 Problem Reference',
+          text: 'Orion Problem Reference',
           items: [
           {
-                    "text": "All /v3 Problems",
+                    "text": "All Orion Problems",
                     "link": "/problems/"
           },
           {

@@ -1,17 +1,21 @@
 ---
-title: Horizon & /v3 Endpoints Reference
-description: Complete list of Horizon-compatible and Orion /v3 endpoints served at https://pubnet.stellarchain.io.
+title: Endpoints Reference
+description: Complete list of Horizon REST/SSE, /statistics, /contracts/{id}/events, and /rpc endpoints served at https://pubnet.stellarchain.io.
 ---
 
-# Horizon & `/v3` Endpoints Reference
+# Endpoints Reference
 
-Orion provides 100% drop-in compatibility with Stellar Horizon (`/` root discovery and all 24 `_links` relations) plus native `/v3` analytics and `/rpc` Soroban JSON-RPC 2.0.
+Orion provides 100% drop-in compatibility with Stellar Horizon (`/` root discovery and all HAL+JSON `_links` relations) plus unversioned network analytics (`/statistics`), lossless Soroban contract events (`/contracts/{contract_id}/events`), and Protocol 30 Soroban JSON-RPC 2.0 (`/rpc`).
 
-## Horizon Endpoints (`https://pubnet.stellarchain.io`)
+## Horizon & Core Endpoints (`https://pubnet.stellarchain.io`)
 
 | Endpoint | Description |
 | :--- | :--- |
 | `GET /` | Root discovery document (`_links`, `history_latest_ledger`, `orion.live`) |
+| `GET /statistics` | Network statistics catalog (47 metrics, coverage, snapshot digest) |
+| `GET /statistics/{metric_id}` | Time-series and dimensional query for any of the 47 network metrics |
+| `GET /contracts/{contract_id}/events` | Lossless deployment-to-tip Soroban contract event history |
+| `POST /rpc` | Soroban JSON-RPC 2.0 (`getHealth`, `getLatestLedger`, `getEvents`, `getLedgerEntries`, `simulateTransaction`, `sendTransaction`, etc.) |
 | `GET /ledgers` | List ledgers (`?cursor=&limit=&order=asc\|desc`) |
 | `GET /ledgers/{sequence}` | Single ledger details (Genesis `#3` through Live Tip) |
 | `GET /ledgers/{sequence}/transactions` | Transactions in a ledger |

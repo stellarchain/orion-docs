@@ -18,7 +18,7 @@ description: "The requested URL is planned but not yet implemented."
 </div>
 
 ::: tip Quick Fix & Resolution
-Use the supported Horizon endpoints listed in the root `/` `_links` discovery document or `/v3` endpoints.
+Use the supported Horizon endpoints listed in the root `/` `_links` discovery document or unversioned endpoints.
 :::
 
 ## Response Payload & SDK Handling

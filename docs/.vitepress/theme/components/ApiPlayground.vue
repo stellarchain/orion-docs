@@ -13,9 +13,14 @@ const presets = [
     path: '/ledgers/65149988/operations?limit=2'
   },
   {
-    label: 'Live Statistics: Active Accounts 24h',
+    label: 'Live Statistics Catalog (GET /statistics)',
     category: 'API',
-    path: '/v3/statistics/active-accounts-24h'
+    path: '/statistics'
+  },
+  {
+    label: 'Live Metric: daily-active-accounts',
+    category: 'API',
+    path: '/statistics/daily-active-accounts?start=2026-10-26T00:00:00Z&end=2026-10-27T00:00:00Z&granularity=1d&limit=1'
   },
   {
     label: 'Trigger 400: invalid_accounts_params',
@@ -38,9 +43,9 @@ const presets = [
     path: '/order_book'
   },
   {
-    label: 'Trigger /v3 400: invalid_statistics_query',
+    label: 'Trigger 400: invalid_statistics_query',
     category: 'Error',
-    path: '/v3/statistics/direct-payments'
+    path: '/statistics/direct-payments?limit=0'
   }
 ]
 

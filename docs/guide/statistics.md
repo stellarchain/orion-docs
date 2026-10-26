@@ -1,24 +1,36 @@
 ---
-title: Live Network Statistics (/v3/statistics)
+title: Live Network Statistics (/statistics)
 description: 47 real-time and historical Stellar network metrics backed by 12 Parquet families in Cloudflare R2.
 ---
 
-# Live Network Statistics (`/v3/statistics`)
+# Live Network Statistics (`/statistics`)
 
-Orion continuously reduces every closed Stellar ledger into **12 Parquet statistics families** (`core`, `account-windows`, `account-activity`, `failure-codes`, `contract-functions`, `asset-transfers`, `payment-corridors`, `payment-participants`, `stablecoin-transfers`, `market-daily`, `market-liquidity`, `storage-mutations`) plus `native_ledger_summary.parquet` and publishes them to Cloudflare R2 (`history/v5/_derived/statistics/`).
+Orion continuously reduces every closed Stellar ledger into **12 Parquet statistics families** (`core`, `soroban`, `Soroban`, `fees`, `dex`, `stablecoins`, `corridors`, `trustlines`, `FailureCodes`, `ContractFunctions`, `ContractStorage`, `account-activity`) plus `native_ledger_summary.parquet` and publishes them to Cloudflare R2 (`history/v5/_derived/statistics/`).
 
-## Discovery Endpoint
+## Discovery & Query Endpoints
 
-- `GET https://pubnet.stellarchain.io/v3/statistics` — Returns all **47 metric definitions**, supported granularities (`ledger`, `5m`, `1h`, `1d`), required filters, and the live coverage window.
+- **`GET https://pubnet.stellarchain.io/statistics`** — Returns all **47 metric definitions**, supported granularities (`1d`, `1w`, `1mo`, `1q`), dimension schemas, and the live UTC coverage window.
+- **`GET https://pubnet.stellarchain.io/statistics/{metric_id}?start=...&end=...&granularity=1d&limit=...`** — Queries a specific metric across UTC calendar buckets (`1d`, `1w`, `1mo`, `1q`) with optional `dimension[name]=value` filters.
 
-## 47 Available Metrics (`GET /v3/statistics/{metric}`)
+### Example Query
 
-| Category | Metrics |
+```bash
+# Discover all 47 metrics and current coverage window
+curl -s "https://pubnet.stellarchain.io/statistics" | jq .
+
+# Query daily-active-accounts
+curl -s "https://pubnet.stellarchain.io/statistics/daily-active-accounts?start=2026-10-26T00:00:00Z&end=2026-10-27T00:00:00Z&granularity=1d&limit=1" | jq .
+```
+
+---
+
+## All 47 Available Metrics (`GET /statistics/{metric_id}`)
+
+| Category | Metrics (`metric_id`) |
 | :--- | :--- |
-| **Ledger & Throughput** | `ledger-close-latency`, `transactions`, `operations`, `soroban-Invocation-throughput` |
-| **Fees & Soroban Resources** | `total-charged-fees`, `inclusion-fees`, `resource-fees`, `soroban-cpu-instructions`, `soroban-read-bytes`, `soroban-write-bytes`, `soroban-read-entries`, `soroban-write-entries`, `soroban-tx-byte-size` |
-| **Accounts & Activity** | `active-accounts`, `active-accounts-24h`, `active-accounts-7d`, `active-accounts-30d`, `accounts-created`, `accounts-merged`, `net-account-growth`, `account-activity` (`?account=G...`) |
-| **Payments & Corridors** | `native-xlm-payment-volume`, `issued-asset-payment-volume` (`?asset=CODE:ISSUER`), `direct-payments` (`?asset=`), `path-payments` (`?asset=`), `payment-corridors` (`?corridor=A->B`), `payment-senders` (`?asset=`), `payment-receivers` (`?asset=`), `stablecoin-transfer-volume` |
-| **SDEX & Liquidity Pools** | `dex-trade-count` (`?pair=A/B`), `dex-volume` (`?pair=A/B`), `liquidity-pool-trade-volume` (`?pool=ID`), `liquidity-pool-tvl` (`?pool=ID`), `orderbook-spread` (`?pair=A/B`), `top-of-book-depth` (`?pair=A/B`), `offer-churn` (`?pair=A/B`) |
-| **Soroban Smart Contracts** | `contract-invocations`, `unique-contracts-invoked`, `contract-subcall-count`, `contract-events-emitted`, `contract-function-calls` (`?contract=C...&function=fn`) |
-| **State & Failure Codes** | `state-creations`, `state-updates`, `state-deletions`, `state-restores`, `transaction-failure-codes`, `operation-failure-codes` |
+| **Accounts & Retention** | `daily-active-accounts`, `weekly-active-accounts`, `monthly-active-accounts`, `returning-accounts`, `reactivated-accounts`, `account-stickiness`, `seven-day-account-retention`, `thirty-day-account-retention` |
+| **Soroban Smart Contracts** | `active-contracts`, `unique-contract-callers`, `contract-events`, `contract-function-activity` (`contract_id`, `function_name`), `contract-instructions`, `contract-read-bytes`, `contract-write-bytes`, `contract-storage-mutations` (`contract_id`, `durability`), `contract-success-rate`, `failed-contract-calls`, `soroban-resource-fees` |
+| **Payments & Stablecoins** | `direct-payments`, `path-payments`, `path-payment-share`, `unique-payment-senders`, `unique-payment-receivers`, `transferred-value-by-asset` (`asset`), `asset-payment-corridors` (`source_asset`, `destination_asset`), `stablecoin-transfer-volume` (`asset`), `stablecoin-transfer-count` (`asset`) |
+| **SDEX & Markets** | `active-markets`, `filled-dex-trades`, `dex-base-volume` (`base_asset`, `counter_asset`), `dex-quote-volume` (`base_asset`, `counter_asset`), `dex-vwap` (`base_asset`, `counter_asset`), `dex-liquidity` (`base_asset`, `counter_asset`) |
+| **Assets & Trustlines** | `active-assets`, `net-trustline-growth` (`asset`), `trustline-removals` (`asset`) |
+| **Fees, Capacity & Reliability** | `inclusion-fees`, `resource-fee`, `fee-concentration`, `fee-p50`, `fee-p90`, `fee-p95`, `fee-p99`, `ledger-capacity-utilization`, `peak-ledger-capacity`, `failure-code-distribution` (`result_code`) |

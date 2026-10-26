@@ -8,7 +8,7 @@ description: "The `ledger` filter parameter is not a valid positive ledger seque
 <div class="orion-error-banner">
   <div class="orion-error-meta">
     <span class="orion-status-badge orion-status-4xx">HTTP 400</span>
-    <span class="orion-status-badge" style="background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1)">Orion /v3 Problem</span>
+    <span class="orion-status-badge" style="background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1)">Orion Problem</span>
     <span style="font-size: 13px; opacity: 0.8">Code: <code>invalid_ledger</code></span>
   </div>
   <div class="orion-uri-box">
@@ -19,7 +19,7 @@ description: "The `ledger` filter parameter is not a valid positive ledger seque
 
 ::: tip How to Resolve `invalid_ledger`
 1. Inspect the `status` (`400`), `code` (`invalid_ledger`), and `detail` fields in the JSON response.
-2. For `400` validation errors (`invalid_*`), verify query parameters against the [Endpoints Reference](/guide/endpoints) or [Statistics Catalog (`GET /v3/statistics`)](/guide/statistics).
+2. For `400` validation errors (`invalid_*`), verify query parameters against the [Endpoints Reference](/guide/endpoints) or [Statistics Catalog (`GET /statistics`)](/guide/statistics).
 3. For `404` errors (`*_not_found`), confirm the resource exists on Stellar Pubnet.
 4. For `409`, `429`, `503`, or `504` transient states, retry with exponential backoff.
 :::
@@ -39,17 +39,17 @@ description: "The `ledger` filter parameter is not a valid positive ledger seque
 ```
 
 ```typescript [TypeScript / Fetch]
-const res = await fetch('https://pubnet.stellarchain.io/v3/statistics');
+const res = await fetch('https://pubnet.stellarchain.io/statistics');
 if (!res.ok) {
   const problem = await res.json();
   if (problem.code === 'invalid_ledger') {
-    console.error('Orion /v3 Problem [invalid_ledger]:', problem.detail);
+    console.error('Orion Problem [invalid_ledger]:', problem.detail);
   }
 }
 ```
 
 ```bash [cURL]
-curl -i -s "https://pubnet.stellarchain.io/v3/statistics" \
+curl -i -s "https://pubnet.stellarchain.io/statistics" \
   -H "Accept: application/json"
 ```
 
@@ -57,4 +57,4 @@ curl -i -s "https://pubnet.stellarchain.io/v3/statistics" \
 
 ---
 
-[← Back to All 53 Orion `/v3` Problem Codes](/problems/)
+[← Back to All 53 Orion Problem Codes](/problems/)

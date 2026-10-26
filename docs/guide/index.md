@@ -1,6 +1,6 @@
 ---
 title: Getting Started with Orion
-description: High-performance Stellar Pubnet Horizon + /v3 Analytics + Soroban RPC API at pubnet.stellarchain.io.
+description: High-performance Stellar Pubnet Horizon + Network Analytics + Soroban RPC API at pubnet.stellarchain.io.
 ---
 
 # Getting Started with Orion
@@ -11,7 +11,7 @@ description: High-performance Stellar Pubnet Horizon + /v3 Analytics + Soroban R
 
 | Service | Base URL | Description |
 | :--- | :--- | :--- |
-| **Orion Pubnet API** | `https://pubnet.stellarchain.io` | Full Horizon API + Orion `/v3` Analytics API + `/rpc` JSON-RPC 2.0 |
+| **Orion Pubnet API** | `https://pubnet.stellarchain.io` | Full Horizon API + Orion Analytics API + `/rpc` JSON-RPC 2.0 |
 | **Documentation & Errors** | `https://orion.stellarchain.io` | Official RFC 7807 Error Reference (`/horizon-errors` & `/problems`) & Guides |
 
 ## Quick Start Examples
@@ -26,7 +26,7 @@ curl -s "https://pubnet.stellarchain.io/" | jq '{history_latest_ledger, core_lat
 curl -s "https://pubnet.stellarchain.io/ledgers/65149988/operations?limit=5" | jq .
 
 # 3. Query live network statistics (47 pre-aggregated metrics)
-curl -s "https://pubnet.stellarchain.io/v3/statistics/active-accounts-24h" | jq .
+curl -s "https://pubnet.stellarchain.io/statistics/daily-active-accounts?start=2026-10-26T00:00:00Z&end=2026-10-27T00:00:00Z&granularity=1d&limit=1" | jq .
 ```
 
 ```typescript [TypeScript (@stellar/stellar-sdk)]

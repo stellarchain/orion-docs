@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Orion Stellar Docs"
   text: "Interactive Error Reference, XDR Result Codes & Lakehouse API"
-  tagline: "Zero-lag Stellar Pubnet Horizon + /v3 Analytics API backed by 478+ GiB of Cloudflare R2 Parquet history. Click any error code or test live Pubnet queries below."
+  tagline: "Zero-lag Stellar Pubnet Horizon + Network Analytics API backed by 478+ GiB of Cloudflare R2 Parquet history. Click any error code or test live Pubnet queries below."
   image:
     src: /logo.svg
     alt: Orion StellarChain
@@ -13,7 +13,7 @@ hero:
       text: "⚡ Horizon Errors (23)"
       link: /horizon-errors/
     - theme: alt
-      text: "🛡️ Orion /v3 Problems (53)"
+      text: "🛡️ Orion Problems (53)"
       link: /problems/
     - theme: alt
       text: "🧬 XDR Result Codes"
@@ -28,8 +28,8 @@ features:
     details: "Instant search & troubleshooting for bad_request, transaction_failed, not_found, invalid_accounts_params, invalid_order_book, stale_history, and timeout."
     link: /horizon-errors/
   - icon: "🛡️"
-    title: "53 Orion /v3 Problem Definitions"
-    details: "Complete reference for /v3/statistics and edge problem codes including invalid_statistics_query, expired_cursor, resource_limit, and stream_gap."
+    title: "53 Orion Problem Definitions"
+    details: "Complete reference for /statistics and edge problem codes including invalid_statistics_query, expired_cursor, resource_limit, and stream_gap."
     link: /problems/
   - icon: "🧬"
     title: "Restored Stellar Core XDR Result Codes"

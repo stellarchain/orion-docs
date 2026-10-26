@@ -18,7 +18,7 @@ description: "The query exceeded the server's scan/work budget or member fanout 
 </div>
 
 ::: tip Quick Fix & Resolution
-Supply a narrower `cursor` range, lower the `limit` parameter, or use pre-aggregated `/v3/statistics` endpoints for network-wide analytics.
+Supply a narrower `cursor` range, lower the `limit` parameter, or use pre-aggregated `/statistics` endpoints for network-wide analytics.
 :::
 
 ## Response Payload & SDK Handling
