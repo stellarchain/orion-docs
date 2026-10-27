@@ -1,5 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  "account_id": "af4953a04fa7f90854db6a8dad73875c",
   "name": "orion-docs",
   "main": "worker.mjs",
   "compatibility_date": "2026-09-11",

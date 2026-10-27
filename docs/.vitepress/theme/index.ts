@@ -4,7 +4,6 @@ import './custom.css'
 import LiveNetworkBadge from './components/LiveNetworkBadge.vue'
 import ApiPlayground from './components/ApiPlayground.vue'
 import ErrorCatalog from './components/ErrorCatalog.vue'
-import LiveAnalyticsDashboard from './components/LiveAnalyticsDashboard.vue'
 
 function sendDocsBeacon(path: string) {
   if (typeof window === 'undefined') return
@@ -38,7 +37,6 @@ export default {
   enhanceApp({ app, router }) {
     app.component('ApiPlayground', ApiPlayground)
     app.component('ErrorCatalog', ErrorCatalog)
-    app.component('LiveAnalyticsDashboard', LiveAnalyticsDashboard)
 
     if (typeof window !== 'undefined') {
       let lastTracked = ''
