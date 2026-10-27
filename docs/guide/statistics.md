@@ -5,16 +5,16 @@ description: 47 real-time and historical Stellar network metrics organized into 
 
 # Live Network Statistics (`/statistics`)
 
-Orion serves **47 real-time and historical Stellar network metrics** organized into **7 plural REST category resources** (`accounts`, `assets`, `payments`, `contracts`, `dex`, `fees`, `ledgers`), following **Horizon HAL+JSON** and modern **HTTP API Design** best practices (plural nouns, `kebab-case` URL paths, `snake_case` JSON properties, string big-integers, `ETag` conditional caching, and sparse fieldsets).
+Orion serves **47 real-time and historical Stellar network metrics** organized into **7 plural REST category resources** (`accounts`, `assets`, `payments`, `contracts`, `markets`, `fees`, `ledgers`), following **Horizon HAL+JSON** and modern **HTTP API Design** best practices (plural nouns, `kebab-case` URL paths, `snake_case` JSON properties, string big-integers, `ETag` conditional caching, and sparse fieldsets).
 
 ## Resource Hierarchy
 
 1. **Top-Level Discovery (`GET /statistics`)**
    Returns links to all 7 category collections plus `_embedded.records` describing all 47 metrics (`category`, `metric`, `key`, `unit`, `granularities`, `dimensions`). Supports `?category=contracts` filtering.
 2. **Category Time-Series (`GET /statistics/{category}`)**
-   Returns a paginated HAL+JSON time-series of unified daily (or `1w`, `1mo`, `1q`) records for that domain (`accounts`, `assets`, `payments`, `contracts`, `dex`, `fees`, `ledgers`), with all metrics for that category returned as simplified `snake_case` keys on a single record. Supports `?fields=active,events` sparse fieldsets.
+   Returns a paginated HAL+JSON time-series of unified daily (or `1w`, `1mo`, `1q`) records for that domain (`accounts`, `assets`, `payments`, `contracts`, `markets`, `fees`, `ledgers`), with all metrics for that category returned as simplified `snake_case` keys on a single record. Supports `?fields=active,events` sparse fieldsets.
 3. **Individual Metric Time-Series (`GET /statistics/{category}/{metric}`)**
-   Returns a paginated HAL+JSON time-series for a single metric or dimensional breakdown (e.g., `GET /statistics/assets/active`, `GET /statistics/contracts/active`, `GET /statistics/contracts/functions`, `GET /statistics/accounts/active`).
+   Returns a paginated HAL+JSON time-series for a single metric or dimensional breakdown (e.g., `GET /statistics/assets/active`, `GET /statistics/markets/active`, `GET /statistics/contracts/active`, `GET /statistics/contracts/functions`, `GET /statistics/accounts/active`).
 
 ---
 
@@ -115,6 +115,6 @@ curl -s "https://pubnet.stellarchain.io/statistics/contracts?fields=active,calle
 | **`/statistics/assets`** | `/statistics/assets/active`<br>`/statistics/assets/transferred-value` (`asset`)<br>`/statistics/assets/corridors` (`source_asset`, `destination_asset`)<br>`/statistics/assets/trustline-growth`<br>`/statistics/assets/trustline-removals`<br>`/statistics/assets/stablecoin-transfers` (`asset`)<br>`/statistics/assets/stablecoin-volume` (`asset`) | `active`, `transferred_value`, `corridors`, `trustline_growth`, `trustline_removals`, `stablecoin_transfers`, `stablecoin_volume` |
 | **`/statistics/payments`** | `/statistics/payments/direct`<br>`/statistics/payments/path`<br>`/statistics/payments/path-share`<br>`/statistics/payments/senders`<br>`/statistics/payments/receivers` | `direct`, `path`, `path_share`, `senders`, `receivers` |
 | **`/statistics/contracts`** | `/statistics/contracts/active`<br>`/statistics/contracts/callers`<br>`/statistics/contracts/functions` (`contract_id`, `function_name`)<br>`/statistics/contracts/events`<br>`/statistics/contracts/success-rate`<br>`/statistics/contracts/failed-calls`<br>`/statistics/contracts/instructions`<br>`/statistics/contracts/read-bytes`<br>`/statistics/contracts/write-bytes`<br>`/statistics/contracts/storage-mutations` (`durability`, `change_type`)<br>`/statistics/contracts/resource-fees` | `active`, `callers`, `functions`, `events`, `success_rate`, `failed_calls`, `instructions`, `read_bytes`, `write_bytes`, `storage_mutations`, `resource_fees` |
-| **`/statistics/dex`** | `/statistics/dex/active-markets`<br>`/statistics/dex/trades`<br>`/statistics/dex/base-volume` (`base_asset`, `counter_asset`)<br>`/statistics/dex/quote-volume` (`base_asset`, `counter_asset`)<br>`/statistics/dex/vwap` (`base_asset`, `counter_asset`)<br>`/statistics/dex/liquidity` (`venue`, `market_id`, `base_asset`, `counter_asset`) | `active_markets`, `trades`, `base_volume`, `quote_volume`, `vwap`, `liquidity` |
+| **`/statistics/markets`** | `/statistics/markets/active`<br>`/statistics/markets/trades`<br>`/statistics/markets/base-volume` (`base_asset`, `counter_asset`)<br>`/statistics/markets/quote-volume` (`base_asset`, `counter_asset`)<br>`/statistics/markets/vwap` (`base_asset`, `counter_asset`)<br>`/statistics/markets/liquidity` (`venue`, `market_id`, `base_asset`, `counter_asset`) | `active`, `trades`, `base_volume`, `quote_volume`, `vwap`, `liquidity` |
 | **`/statistics/fees`** | `/statistics/fees/inclusion`<br>`/statistics/fees/resource`<br>`/statistics/fees/concentration`<br>`/statistics/fees/p50`<br>`/statistics/fees/p90`<br>`/statistics/fees/p95`<br>`/statistics/fees/p99` | `inclusion`, `resource`, `concentration`, `p50`, `p90`, `p95`, `p99` |
 | **`/statistics/ledgers`** | `/statistics/ledgers/capacity-utilization`<br>`/statistics/ledgers/peak-capacity`<br>`/statistics/ledgers/failure-codes` (`code`) | `capacity_utilization`, `peak_capacity`, `failure_codes` |
